@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './Hangman.css';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig';
+import { auth } from './firebaseConfig';
+import { FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+
 
 const Hangman = () => {
+  const [user, setUser] = useState(null);
   const [wordToGuess, setWordToGuess] = useState('');
   const [wordDefinition, setWordDefinition] = useState('');
   const [guessedLetters, setGuessedLetters] = useState([]);
@@ -32,6 +36,22 @@ const Hangman = () => {
   };
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        if (!currentUser) {
+          const provider = new FacebookAuthProvider();
+          signInWithPopup(auth, provider)
+            .then((result) => {
+              setUser(result.user);
+            })
+            .catch((error) => {
+              console.error('Erreur de connexion Facebook:', error);
+            });
+        } else {
+          setUser(currentUser);
+        }
+      });
+    
+      return () => unsubscribe();
     fetchRandomWord();
   }, []);
 
@@ -81,6 +101,8 @@ const Hangman = () => {
   return (
     <div className="hangman-container">
       <h1>Jeu du Pendu</h1>
+      {user && <p>Connecté en tant que : {user.displayName}</p>}
+
 
       {/* Mot à deviner */}
       <div className="word-display">
