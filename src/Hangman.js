@@ -36,6 +36,7 @@ const Hangman = () => {
   };
 
   useEffect(() => {
+    fetchRandomWord();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
         if (!currentUser) {
           const provider = new FacebookAuthProvider();
@@ -52,7 +53,7 @@ const Hangman = () => {
       });
     
       return () => unsubscribe();
-    fetchRandomWord();
+    
   }, []);
 
   const checkLetter = (letter) => {
