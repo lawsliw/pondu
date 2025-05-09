@@ -3,9 +3,14 @@ import './Hangman.css';
 import { collection, getDocs, doc, setDoc, updateDoc, getDoc } from 'firebase/firestore';
 import { db, auth } from './firebaseConfig';
 import { FacebookAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
-
+import winSound from './sounds/win.mp3';
+import loseSound from './sounds/lose.mp3';
+import clickSound from './sounds/click.mp3';
 
 const Hangman = () => {
+  const winAudio = new Audio(winSound);
+  const loseAudio = new Audio(loseSound);
+  const clickAudio = new Audio(clickSound);
   const [score, setScore] = useState(0);
   const [user, setUser] = useState(null); // utilisateur connecté
   const [wordToGuess, setWordToGuess] = useState('');
@@ -88,6 +93,7 @@ const Hangman = () => {
   
   // ✅ Vérification de lettres
   const checkLetter = (letter) => {
+    clickAudio.play();
     if (gameOver || guessedLetters.includes(letter)) return;
 
     setGuessedLetters([...guessedLetters, letter]);
@@ -115,12 +121,14 @@ const Hangman = () => {
     if (attempts >= maxAttempts) {
       setGameOver(true);
       setShowAnimation(true);
+      loseAudio.play(); // 🔊 Son de défaite
     } else if (
       wordToGuess &&
       wordToGuess.split('').every((letter) => guessedLetters.includes(letter))
     ) {
       setGameOver(true);
       setShowWinAnimation(true);
+      winAudio.play(); // 🔊 Son de victoire
         updateUserScore();
     }
   }, [attempts, guessedLetters, wordToGuess]);

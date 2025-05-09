@@ -1,87 +1,138 @@
-.hangman-container {
-    font-family: Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+body {
+    background: linear-gradient(135deg, #FFECB3, #FFCDD2);
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Neue', cursive;
+  }
+  
+  .hangman-container {
     text-align: center;
-    margin-top: 20px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 25px;
+    max-width: 800px;
+    background-color: #FFF9C4;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    border: 5px dashed #FF8A65;
+  }
+  
+  h1 {
+    font-size: 3em;
+    color: #F06292;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px #FCE4EC;
   }
   
   .word-display {
-    font-size: 2em;
-    margin: 20px 0;
-    letter-spacing: 10px;
+    font-size: 3em;
+    margin: 30px 0;
+    letter-spacing: 20px;
+    color: #4DD0E1;
   }
   
   .hangman {
-    margin: 20px 0;
-    font-size: 1.5em;
+    font-size: 2em;
+    color: #FF5722;
+    margin-bottom: 20px;
   }
   
   .attempts-remaining {
-    font-size: 1.5em;
+    font-size: 1.8em;
     font-weight: bold;
-    color: #ff5722;
+    color: #E91E63;
   }
   
   .letter-buttons {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 25px;
   }
   
   .letter-buttons button {
-    padding: 10px;
+    width: 50px;
+    height: 50px;
     margin: 5px;
+    border-radius: 50%;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: white;
+    background-color: #4DB6AC;
+    border: none;
     cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .letter-buttons button:hover {
+    background-color: #FFCA28;
+    transform: scale(1.1);
   }
   
   .letter-buttons button:disabled {
-    background-color: #ddd;
+    background-color: #BDBDBD;
     cursor: not-allowed;
+    color: #eee;
+  }
+  
+  .score-display {
+    font-size: 1.5em;
+    margin-top: 10px;
+    color: #7C4DFF;
+    background-color: #E1BEE7;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
   }
   
   .game-over-message {
-    margin-top: 20px;
-    font-size: 1.2em;
+    margin-top: 30px;
+    font-size: 1.5em;
+    background-color: #FFF3E0;
+    padding: 20px;
+    border-radius: 20px;
+    border: 3px solid #FF7043;
+    animation: pulse 1s infinite;
+  }
+  
+  .game-over-message strong {
+    color: #F44336;
   }
   
   .game-over-message button {
-    padding: 10px;
-    background-color: #ff5722;
-    border: none;
+    padding: 12px 25px;
+    margin-top: 15px;
+    background-color: #FF9800;
     color: white;
-    border-radius: 5px;
+    border: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 30px;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .game-over-message button:hover {
-    background-color: #e64a19;
+    background-color: #F57C00;
   }
   
   .animation {
-    margin-top: 20px;
-    font-size: 1.5em;
-    animation: shake 0.5s ease-in-out 3;
+    margin-top: 30px;
+    font-size: 1.7em;
   }
   
   .loss {
-    color: red;
+    color: #D32F2F;
   }
   
   .win {
-    color: green;
-    animation: bounce 1s ease-in-out infinite;
+    color: #388E3C;
   }
   
-  @keyframes shake {
-    0% { transform: translateX(-10px); }
-    25% { transform: translateX(10px); }
-    50% { transform: translateX(-10px); }
-    75% { transform: translateX(10px); }
-    100% { transform: translateX(0); }
-  }
-  
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
   }
   
